@@ -1,4 +1,12 @@
+# Variable to enable/disable Kubernetes resources
+variable "enable_k8s" {
+  default = true
+}
+
+# Kubernetes Deployment for MongoDB
 resource "kubernetes_deployment_v1" "mongodb" {
+  count = var.enable_k8s ? 1 : 0
+
   metadata {
     name = "mongodb-deployment"
     labels = {
@@ -36,7 +44,10 @@ resource "kubernetes_deployment_v1" "mongodb" {
   }
 }
 
+# Kubernetes Service for MongoDB
 resource "kubernetes_service_v1" "mongodb_service" {
+  count = var.enable_k8s ? 1 : 0
+
   metadata {
     name = "mongodb-service"
   }
