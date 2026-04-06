@@ -21,4 +21,5 @@ jobs:
 
 
       - name: Terraform Plan
-        run:  terraform plan
+        run:  terraform plan -var="enable_k8s=false"
+ 
