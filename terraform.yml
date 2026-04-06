@@ -10,16 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+      - uses: hashicorp/setup-terraform@v3
 
-      - name: Terraform Init
-        run: terraform init
+      - name: Init (no backend)
+        run: terraform init -backend=false
 
-
-      - name: Terraform Plan
-        run:  terraform plan -var="enable_k8s=false"
- 
+      - name: Plan (skip k8s + no refresh)
+        run: terraform plan -var="enable_k8s=false" -refresh=false 
